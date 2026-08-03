@@ -59,14 +59,16 @@ case "$ACTION" in
         exit 0
         ;;
     --build|-b)
-        echo -e "${BLUE}[INFO] Building Docker image from local source code...${NC}"
-        git pull origin main || true
+        echo -e "${BLUE}[INFO] Fetching & resetting to latest Git repository...${NC}"
+        git fetch origin main || true
+        git reset --hard origin/main || true
         docker compose build
         docker compose up -d --force-recreate
         ;;
     deploy|*)
-        echo -e "${BLUE}[INFO] Pulling latest changes from Git & Docker...${NC}"
-        git pull origin main || true
+        echo -e "${BLUE}[INFO] Fetching & resetting to latest Git repository...${NC}"
+        git fetch origin main || true
+        git reset --hard origin/main || true
         docker compose pull
         docker compose up -d --remove-orphans
         ;;

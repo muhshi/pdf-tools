@@ -80,8 +80,8 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-03
-- **Update Port Default Server**: Mengubah default port aplikasi dari `8080` menjadi **`8880`** pada `docker-compose.yml`, `.env.example`, `deploy.sh`, dan `README.md` agar tidak bentrok dengan service lain di server.
+- **Perbaikan Deployment Git**: Memperbarui `deploy.sh` menggunakan `git fetch && git reset --hard origin/main` agar tidak lagi gagal akibat error unstaged changes/rebase pada server.
+- **Pembersihan Docker Compose**: Menghapus atribut `version: '3.8'` pada `docker-compose.yml` untuk menghilangkan peringatan *obsolete attribute warning*.
+- **Update Port Default Server**: Mengubah default port aplikasi dari `8080` menjadi **`8880`** pada `docker-compose.yml`, `.env.example`, `deploy.sh`, dan `README.md`.
 - **Inisialisasi Repositori**: Menyiapkan repositori bersih `pdf-tools` berbasis Stirling-PDF.
-- **Konfigurasi Docker**: Menambahkan `docker-compose.yml` siap pakai untuk produksi di server Ubuntu.
-- **Otomatisasi Deployment**: Menambahkan script `deploy.sh` untuk mempermudah `git pull`, build, restart, dan pemantauan log di server.
-- **Konfigurasi Environment**: Menambahkan `.env.example` untuk pengaturan port, kredensial login, dan nama aplikasi.
+- **Otomatisasi Deployment**: Menambahkan script `deploy.sh` untuk mempermudah deployment di server.
