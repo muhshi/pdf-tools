@@ -32,7 +32,7 @@ chmod +x deploy.sh
 ./deploy.sh
 ```
 
-Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, dan berjalan di port `8080` (dapat diakses via `http://IP_SERVER:8080`).
+Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, dan berjalan di port **`8880`** (dapat diakses via `http://IP_SERVER:8880`).
 
 ---
 
@@ -62,7 +62,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 1. **Ubah Nama Aplikasi / Login Admin / Port**:
    Edit file `.env` di folder proyek:
    ```env
-   PORT=8080
+   PORT=8880
    SECURITY_ENABLELOGIN=true
    ADMIN_USERNAME=admin
    ADMIN_PASSWORD=PasswordRahasiaKamu
@@ -80,6 +80,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-03
+- **Update Port Default Server**: Mengubah default port aplikasi dari `8080` menjadi **`8880`** pada `docker-compose.yml`, `.env.example`, `deploy.sh`, dan `README.md` agar tidak bentrok dengan service lain di server.
 - **Inisialisasi Repositori**: Menyiapkan repositori bersih `pdf-tools` berbasis Stirling-PDF.
 - **Konfigurasi Docker**: Menambahkan `docker-compose.yml` siap pakai untuk produksi di server Ubuntu.
 - **Otomatisasi Deployment**: Menambahkan script `deploy.sh` untuk mempermudah `git pull`, build, restart, dan pemantauan log di server.

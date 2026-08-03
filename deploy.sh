@@ -30,7 +30,7 @@ if [ ! -f .env ]; then
     else
         echo -e "${YELLOW}[INFO] Creating default .env file...${NC}"
         cat <<EOT > .env
-PORT=8080
+PORT=8880
 SECURITY_ENABLELOGIN=true
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=StirlingPassword123!
@@ -78,7 +78,7 @@ echo -e "${BLUE}----------------------------------------------------${NC}"
 
 # Ambil IP publik / lokal server
 SERVER_IP=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "IP_SERVER")
-PORT=$(grep -E '^PORT=' .env | cut -d '=' -f 2 || echo "8080")
+PORT=$(grep -E '^PORT=' .env | cut -d '=' -f 2 || echo "8880")
 
 echo -e "${GREEN}Aplikasi dapat diakses melalui:${NC}"
 echo -e "${BLUE}👉 http://${SERVER_IP}:${PORT}${NC}"
