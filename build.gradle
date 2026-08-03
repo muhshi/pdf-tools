@@ -43,7 +43,7 @@ ext {
     batikVersion = "1.19"
     jpdfiumVersion = "1.0.2"
     jwtVersion = "0.13.0"
-    awsSdkVersion = "2.44.12"
+    awsSdkVersion = "2.49.3"
     tinkVersion = "1.23.0"
     testcontainersMinioVersion = "1.21.4"
     // junit-platform-launcher version managed by Spring Boot BOM
