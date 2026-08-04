@@ -1,6 +1,9 @@
 services:
   pdf-tools:
-    image: stirlingtools/stirling-pdf:latest
+    build:
+      context: .
+      dockerfile: docker/embedded/Dockerfile
+    image: pdf-tools:local
     container_name: pdf-tools
     ports:
       - "${PORT:-8880}:8080"
@@ -15,6 +18,7 @@ services:
       
       # Integrasi SSO Sipetra (OAuth2)
       - SECURITY_OAUTH2_ENABLED=${SECURITY_OAUTH2_ENABLED:-true}
+      - SECURITY_OAUTH2_ISSUER=${SECURITY_OAUTH2_ISSUER:-https://bpsdemak.com}
       - SECURITY_OAUTH2_PROVIDER=${SECURITY_OAUTH2_PROVIDER:-sipetra}
       - SECURITY_OAUTH2_CLIENTID=${SECURITY_OAUTH2_CLIENTID:-019fca70-defd-73c4-b5d5-f2ac581a0792}
       - SECURITY_OAUTH2_CLIENTSECRET=${SECURITY_OAUTH2_CLIENTSECRET:-Efg9peKx0CFqxC9SgvZI5hqNMdyOgV8MktRo9bSw}

@@ -36,6 +36,7 @@ SECURITY_LOGINMETHOD=all
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=StirlingPassword123!
 SECURITY_OAUTH2_ENABLED=true
+SECURITY_OAUTH2_ISSUER=https://bpsdemak.com
 SECURITY_OAUTH2_PROVIDER=sipetra
 SECURITY_OAUTH2_CLIENTID=019fca70-defd-73c4-b5d5-f2ac581a0792
 SECURITY_OAUTH2_CLIENTSECRET=Efg9peKx0CFqxC9SgvZI5hqNMdyOgV8MktRo9bSw
@@ -71,19 +72,13 @@ case "$ACTION" in
         echo -e "${GREEN}[SUCCESS] PDF Tools stopped.${NC}"
         exit 0
         ;;
-    --build|-b)
+    --build|-b|deploy|*)
         echo -e "${BLUE}[INFO] Fetching latest updates from Git...${NC}"
         git fetch --all 2>/dev/null || true
         git reset --hard origin/main 2>/dev/null || true
+        echo -e "${BLUE}[INFO] Building custom PDF Tools image from source...${NC}"
         docker compose build
-        docker compose up -d --force-recreate
-        ;;
-    deploy|*)
-        echo -e "${BLUE}[INFO] Fetching latest updates from Git...${NC}"
-        git fetch --all 2>/dev/null || true
-        git reset --hard origin/main 2>/dev/null || true
-        docker compose pull
-        docker compose up -d --remove-orphans
+        docker compose up -d --force-recreate --remove-orphans
         ;;
 esac
 
