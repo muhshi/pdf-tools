@@ -22,14 +22,9 @@ git clone https://github.com/muhshi/pdf-tools.git ~/pdf-tools
 cd ~/pdf-tools
 ```
 
-### 2. Beri Izin Eksekusi pada `deploy.sh`
+### 2. Jalankan Deployment
 ```bash
-chmod +x deploy.sh
-```
-
-### 3. Jalankan Deployment
-```bash
-./deploy.sh
+bash deploy.sh
 ```
 
 Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, dan berjalan di port **`8880`** (dapat diakses via `http://IP_SERVER:8880`).
@@ -40,19 +35,19 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 
 - **Deploy / Update Standar**:
   ```bash
-  ./deploy.sh
+  bash deploy.sh
   ```
 - **Melihat Log Live Container**:
   ```bash
-  ./deploy.sh --logs
+  bash deploy.sh --logs
   ```
 - **Menghentikan Application**:
   ```bash
-  ./deploy.sh --stop
+  bash deploy.sh --stop
   ```
 - **Build dari Local Source Code**:
   ```bash
-  ./deploy.sh --build
+  bash deploy.sh --build
   ```
 
 ---
@@ -81,6 +76,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-04
+- **Standarisasi Perintah Deployment (`bash deploy.sh`)**: Mengubah panduan instruksi eksekusi deployment di README.md dan log output dari `./deploy.sh` menjadi `bash deploy.sh` agar tidak membutuhkan chmod tambahan.
 - **Konfigurasi Fast Deployment (Prebuilt Image + Spring Security OAuth2)**: Mengalihkan deployment kembali ke image resmi `stirlingtools/stirling-pdf:latest` yang serba cepat (tanpa kompilasi berat di server) dan menggunakan konfigurasi environment variable standar Spring Security (`SPRING_SECURITY_OAUTH2_CLIENT_*`) untuk mengarahkan alur SSO Sipetra.
 - **Optimasi Paralel Kompilasi Gradle Docker**: Mengatur `gradle build --parallel` dan menghapus `clean` pada `Dockerfile` untuk mempercepat waktu kompilasi source code Java + React SPA.
 - **Optimasi Kecepatan Docker Build**: Menghapus baris redundan `RUN gradle dependencies` pada `docker/embedded/Dockerfile` yang menyebabkan proses build Docker macet/lama saat mengunduh pohon dependensi Gradle.
