@@ -34,9 +34,6 @@ COPY app/core/build.gradle                  app/core/
 COPY app/common/build.gradle                app/common/
 COPY app/proprietary/build.gradle           app/proprietary/
 
-# Use system gradle instead of gradlew to avoid SSL issues downloading gradle distribution on emulated arm64
-RUN gradle dependencies --no-daemon || true
-
 COPY . .
 
 ARG PROTOTYPES_BUILD=false
