@@ -2,6 +2,11 @@
 
 This file provides guidance to AI Agents when working with code in this repository.
 
+## 🚨 Critical User Rules & Safety Constraints
+- **NO AGGRESSIVE DOCKER PRUNE**: **NEVER** recommend or execute `docker system prune -a --volumes` or any commands that delete Docker volumes (`--volumes`) or perform mass deletion of containers and images. Only use targeted, safe cleanups like `docker builder prune -f` or `docker image prune -f`.
+- **DATABASE SAFETY**: Do not drop, truncate, or delete anything related to databases.
+
+
 ## Taskfile (Recommended)
 
 This project uses [Task](https://taskfile.dev/) as a unified command runner. All build, dev, test, lint, and docker commands can be run from the repo root via `task <command>`. Run `task --list` to see all available commands.
