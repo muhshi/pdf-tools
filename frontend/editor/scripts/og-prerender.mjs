@@ -86,7 +86,15 @@ export async function prerenderOg({
   ogBase = "",
   baseHref = "/",
 }) {
-  const template = await fs.readFile(path.join(distDir, "index.html"), "utf8");
+  let template;
+  try {
+    template = await fs.readFile(path.join(distDir, "index.html"), "utf8");
+  } catch {
+    console.warn(
+      "[prerender-og] dist/index.html not found; skipping OG prerender.",
+    );
+    return 0;
+  }
 
   await fs.writeFile(
     path.join(distDir, "index.html"),
