@@ -800,6 +800,9 @@ public class ApplicationProperties {
             private String useAsUsername;
             private Collection<String> scopes = new ArrayList<>();
             private String provider;
+            private String authorizationUri;
+            private String tokenUri;
+            private String userInfoUri;
             private Client client = new Client();
 
             /**

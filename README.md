@@ -81,6 +81,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-04
+- **Perbaikan OAuth2 OIDC Discovery (`ApplicationProperties` & `OAuth2Configuration`)**: Menambahkan dukungan konfigurasi eksplisit `authorizationUri`, `tokenUri`, dan `userInfoUri` untuk Sipetra SSO (Custom OAuth2 tanpa OpenID Connect Discovery), serta menangani exception discovery secara aman agar aplikasi tidak crash saat startup.
 - **Optimasi Script Deployment (`deploy.sh`)**: Mengganti alur sinkronisasi Git menggunakan `git fetch --all` dan `git reset --hard` agar deployment tidak pernah gagal akibat `unstaged changes` atau bentrok `git pull`.
 - **Konfigurasi Kredensial SSO Sipetra (OAuth2)**: Mengintegrasikan Client ID (`019fca70-defd-73c4-b5d5-f2ac581a0792`) dan Client Secret Sipetra SSO ke dalam `.env`, `.env.example`, dan `docker-compose.yml` dengan provider `sipetra`.
 - **Perencanaan Integrasi SSO Sipetra & Light Mode**: Menambahkan file perencanaan kerja `tasks/plan.md` dan checklist `tasks/todo.md` untuk integrasi SSO Sipetra (OAuth2) dan pengaturan Light Mode bawaan.

@@ -197,6 +197,9 @@ public class OAuth2Configuration {
         }
 
         String name = oauth.getProvider();
+        if (isStringEmpty(name)) {
+            name = "custom";
+        }
         String firstChar = String.valueOf(name.charAt(0));
         String clientName = name.replaceFirst(firstChar, firstChar.toUpperCase(Locale.ROOT));
 
@@ -210,35 +213,64 @@ public class OAuth2Configuration {
                         oauth.getScopes(),
                         UsernameAttribute.valueOf(
                                 oauth.getUseAsUsername().toUpperCase(Locale.ROOT)),
-                        null,
-                        null,
-                        null);
+                        oauth.getAuthorizationUri(),
+                        oauth.getTokenUri(),
+                        oauth.getUserInfoUri());
 
         boolean isValid =
-                !isStringEmpty(oidcProvider.getIssuer()) || validateProvider(oidcProvider);
+                !isStringEmpty(oidcProvider.getIssuer())
+                        || (!isStringEmpty(oauth.getAuthorizationUri())
+                                && !isStringEmpty(oauth.getTokenUri()))
+                        || validateProvider(oidcProvider);
         if (isValid) {
             log.info(
-                    "Initialised OIDC OAuth2 provider: registrationId='{}', issuer='{}', redirectUri='{}'",
+                    "Initialised OAuth2 provider: registrationId='{}', issuer='{}', redirectUri='{}'",
                     name,
                     oauth.getIssuer(),
                     REDIRECT_URI_PATH + name);
         } else {
-            log.warn("OIDC OAuth2 provider validation failed - provider will not be registered");
+            log.warn("OAuth2 provider validation failed - provider will not be registered");
+            return Optional.empty();
         }
 
-        return isValid
-                ? Optional.of(
-                        ClientRegistrations.fromIssuerLocation(oauth.getIssuer())
-                                .registrationId(name)
-                                .clientId(oidcProvider.getClientId())
-                                .clientSecret(oidcProvider.getClientSecret())
-                                .scope(oidcProvider.getScopes())
-                                .userNameAttributeName(oidcProvider.getUseAsUsername().getName())
-                                .clientName(clientName)
-                                .redirectUri(REDIRECT_URI_PATH + name)
-                                .authorizationGrantType(AUTHORIZATION_CODE)
-                                .build())
-                : Optional.empty();
+        // If explicit authorizationUri and tokenUri are configured (e.g. custom OAuth2 like Sipetra without OIDC discovery)
+        if (!isStringEmpty(oauth.getAuthorizationUri()) && !isStringEmpty(oauth.getTokenUri())) {
+            ClientRegistration.Builder builder =
+                    ClientRegistration.withRegistrationId(name)
+                            .clientId(oidcProvider.getClientId())
+                            .clientSecret(oidcProvider.getClientSecret())
+                            .scope(oidcProvider.getScopes())
+                            .authorizationUri(oauth.getAuthorizationUri())
+                            .tokenUri(oauth.getTokenUri())
+                            .userNameAttributeName(oidcProvider.getUseAsUsername().getName())
+                            .clientName(clientName)
+                            .redirectUri(REDIRECT_URI_PATH + name)
+                            .authorizationGrantType(AUTHORIZATION_CODE);
+
+            if (!isStringEmpty(oauth.getUserInfoUri())) {
+                builder.userInfoUri(oauth.getUserInfoUri());
+            }
+
+            return Optional.of(builder.build());
+        }
+
+        // Fallback to OIDC Issuer Discovery location
+        try {
+            return Optional.of(
+                    ClientRegistrations.fromIssuerLocation(oauth.getIssuer())
+                            .registrationId(name)
+                            .clientId(oidcProvider.getClientId())
+                            .clientSecret(oidcProvider.getClientSecret())
+                            .scope(oidcProvider.getScopes())
+                            .userNameAttributeName(oidcProvider.getUseAsUsername().getName())
+                            .clientName(clientName)
+                            .redirectUri(REDIRECT_URI_PATH + name)
+                            .authorizationGrantType(AUTHORIZATION_CODE)
+                            .build());
+        } catch (Exception e) {
+            log.error("Failed to discover OIDC provider from issuer: {}. Exception: {}", oauth.getIssuer(), e.getMessage());
+            return Optional.empty();
+        }
     }
 
     private boolean isOAuth2Disabled(OAUTH2 oAuth2) {
