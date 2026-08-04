@@ -217,6 +217,13 @@ public class OAuth2Configuration {
                         oauth.getTokenUri(),
                         oauth.getUserInfoUri());
 
+        String redirectUri = oauth.getRedirectUri();
+        if (isStringEmpty(redirectUri)) {
+            redirectUri = REDIRECT_URI_PATH + name;
+        } else if (redirectUri.startsWith("/")) {
+            redirectUri = "{baseUrl}" + redirectUri;
+        }
+
         boolean isValid =
                 !isStringEmpty(oidcProvider.getIssuer())
                         || (!isStringEmpty(oauth.getAuthorizationUri())
@@ -227,7 +234,7 @@ public class OAuth2Configuration {
                     "Initialised OAuth2 provider: registrationId='{}', issuer='{}', redirectUri='{}'",
                     name,
                     oauth.getIssuer(),
-                    REDIRECT_URI_PATH + name);
+                    redirectUri);
         } else {
             log.warn("OAuth2 provider validation failed - provider will not be registered");
             return Optional.empty();
@@ -244,7 +251,7 @@ public class OAuth2Configuration {
                             .tokenUri(oauth.getTokenUri())
                             .userNameAttributeName(oidcProvider.getUseAsUsername().getName())
                             .clientName(clientName)
-                            .redirectUri(REDIRECT_URI_PATH + name)
+                            .redirectUri(redirectUri)
                             .authorizationGrantType(AUTHORIZATION_CODE);
 
             if (!isStringEmpty(oauth.getUserInfoUri())) {
@@ -264,7 +271,7 @@ public class OAuth2Configuration {
                             .scope(oidcProvider.getScopes())
                             .userNameAttributeName(oidcProvider.getUseAsUsername().getName())
                             .clientName(clientName)
-                            .redirectUri(REDIRECT_URI_PATH + name)
+                            .redirectUri(redirectUri)
                             .authorizationGrantType(AUTHORIZATION_CODE)
                             .build());
         } catch (Exception e) {
