@@ -1,0 +1,4 @@
+# Custom Settings Overrides for PDF Tools
+system:
+  defaultTheme: 'light'
+  showUpdate: false

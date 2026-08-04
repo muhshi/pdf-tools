@@ -9,8 +9,8 @@ Aplikasi manipulasi PDF berbasis web berbasis **Stirling-PDF**, yang dikonfigura
 - **Manipulasi PDF**: Merge, Split, Rotate, Reorder, Compress, Crop, Watermark, Password Protect, Unlock, dll.
 - **Konversi Dokumen**: PDF ke Office, Office ke PDF, Gambar ke PDF, dll.
 - **OCR Scan**: Mengenali teks dari scan PDF (Tesseract OCR).
-- **Keamanan Login**: Sistem otentikasi login admin bawaan.
-- **Kustomisasi Mudah**: Bebas mengubah Logo, Nama Aplikasi, dan CSS via folder `customFiles/`.
+- **Keamanan Login**: Sistem otentikasi login admin bawaan & integrasi SSO (OAuth2 / SAML2).
+- **Kustomisasi Mudah**: Bebas mengubah Logo, Nama Aplikasi, Tema (Light Mode), dan CSS via folder `customFiles/`.
 
 ---
 
@@ -50,16 +50,16 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
   ```bash
   ./deploy.sh --stop
   ```
-- **Build dari Local Source Code (jika ada perubahan kodingan Java/React)**:
+- **Build dari Local Source Code**:
   ```bash
   ./deploy.sh --build
   ```
 
 ---
 
-## ⚙️ Kustomisasi Tampilan (Tanpa Re-build)
+## ⚙️ Kustomisasi Tampilan & SSO (Tanpa Re-build)
 
-1. **Ubah Nama Aplikasi / Login Admin / Port**:
+1. **Ubah Nama Aplikasi / Login Admin / Port / Light Mode**:
    Edit file `.env` di folder proyek:
    ```env
    PORT=8880
@@ -67,6 +67,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
    ADMIN_USERNAME=admin
    ADMIN_PASSWORD=PasswordRahasiaKamu
    APP_NAME=Nama Aplikasi Kamu
+   SYSTEM_DEFAULTTHEME=light
    ```
 
 2. **Ganti Logo & Favicon**:
@@ -79,9 +80,12 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 
 ## 📋 Changelog
 
+### 2026-08-04
+- **Perencanaan Integrasi SSO Sipetra & Light Mode**: Menambahkan file perencanaan kerja `tasks/plan.md` dan checklist `tasks/todo.md` untuk integrasi SSO Sipetra (OAuth2) dan pengaturan Light Mode bawaan.
+- **Konfigurasi Light Mode**: Menambahkan default theme `light` pada `extraConfigs/custom_settings.yml` dan file styling `customFiles/static/custom.css`.
+
 ### 2026-08-03
-- **Perbaikan Deployment Git**: Memperbarui `deploy.sh` menggunakan `git fetch && git reset --hard origin/main` agar tidak lagi gagal akibat error unstaged changes/rebase pada server.
-- **Pembersihan Docker Compose**: Menghapus atribut `version: '3.8'` pada `docker-compose.yml` untuk menghilangkan peringatan *obsolete attribute warning*.
-- **Update Port Default Server**: Mengubah default port aplikasi dari `8080` menjadi **`8880`** pada `docker-compose.yml`, `.env.example`, `deploy.sh`, dan `README.md`.
+- **Perbaikan Deployment Git**: Memperbarui `deploy.sh` menggunakan `git fetch && git reset --hard origin/main` agar tidak gagal pada server.
+- **Pembersihan Docker Compose**: Menghapus atribut `version: '3.8'` pada `docker-compose.yml`.
+- **Update Port Default Server**: Mengubah default port aplikasi dari `8080` menjadi **`8880`**.
 - **Inisialisasi Repositori**: Menyiapkan repositori bersih `pdf-tools` berbasis Stirling-PDF.
-- **Otomatisasi Deployment**: Menambahkan script `deploy.sh` untuk mempermudah deployment di server.
