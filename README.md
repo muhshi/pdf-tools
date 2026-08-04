@@ -76,6 +76,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-04
+- **Pembatasan Memori Gradle Build (`GRADLE_OPTS="-Xmx512m"`)**: Menambahkan limitasi alokasi RAM pada proses kompilasi Gradle di `Dockerfile` agar penggunaan memori terkunci maksimal 512MB RAM dan tidak menyebabkan server hang.
 - **Standarisasi Perintah Deployment (`bash deploy.sh`)**: Mengubah panduan instruksi eksekusi deployment di README.md dan log output dari `./deploy.sh` menjadi `bash deploy.sh` agar tidak membutuhkan chmod tambahan.
 - **Konfigurasi Fast Deployment (Prebuilt Image + Spring Security OAuth2)**: Mengalihkan deployment kembali ke image resmi `stirlingtools/stirling-pdf:latest` yang serba cepat (tanpa kompilasi berat di server) dan menggunakan konfigurasi environment variable standar Spring Security (`SPRING_SECURITY_OAUTH2_CLIENT_*`) untuk mengarahkan alur SSO Sipetra.
 - **Optimasi Paralel Kompilasi Gradle Docker**: Mengatur `gradle build --parallel` dan menghapus `clean` pada `Dockerfile` untuk mempercepat waktu kompilasi source code Java + React SPA.

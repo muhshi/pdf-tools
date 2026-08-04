@@ -20,7 +20,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # JDK 25+: --add-exports is no longer accepted via JAVA_TOOL_OPTIONS; use JDK_JAVA_OPTIONS instead
-ENV JDK_JAVA_OPTIONS="--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
+ENV GRADLE_OPTS="-Xmx512m" \
+    JDK_JAVA_OPTIONS="--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
   --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
   --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
   --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
