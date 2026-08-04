@@ -47,13 +47,13 @@ ARG BUILD_PORTAL=false
 ARG TARGETARCH
 RUN JPDFIUM_PLATFORM="$([ "$TARGETARCH" = arm64 ] && echo linux-arm64 || echo linux-x64)" && \
     STIRLING_FLAVOR=${STIRLING_FLAVOR} \
-    gradle clean build \
+    gradle build \
       -PbuildWithFrontend=true \
       -PbuildWithPortal=${BUILD_PORTAL} \
       -PjpdfiumPlatforms="$JPDFIUM_PLATFORM" \
       -PprototypesMode=${PROTOTYPES_BUILD} \
       -x spotlessApply -x spotlessCheck -x test -x sonarqube \
-      --no-daemon
+      --no-daemon --parallel
 
 # Stage 2: Extract Spring Boot Layers
 FROM eclipse-temurin:25-jre-noble@sha256:2f1da100788559b397bcf48c736169ea5b070bde84e55f203bbee8e83d87a175 AS jar-extract
