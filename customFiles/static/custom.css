@@ -1,0 +1,10 @@
+/* Custom CSS Overrides for PDF Tools - Light Mode Theme */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+}
+
+/* Light mode background & button enhancements */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

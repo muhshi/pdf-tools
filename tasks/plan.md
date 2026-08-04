@@ -27,25 +27,25 @@ Dokumen ini disusun menggunakan panduan `/planning-and-task-breakdown` agar siap
 #### Task 1: Dapatkan Kredensial SSO Sipetra & Daftarkan Callback URL
 - **Description:** Meminta Client ID, Client Secret, dan Issuer URI dari Tim IT/Admin SSO Sipetra, serta mendaftarkan Redirect URI aplikasi.
 - **Acceptance criteria:**
-  - [ ] Client ID dan Client Secret SSO Sipetra diperoleh.
-  - [ ] Issuer URI / Authorize URL SSO Sipetra diperoleh.
-  - [ ] Redirect Callback URL `http://10.133.21.24:8880/login/oauth2/code/custom` terdaftar di Sipetra SSO.
-- **Verification:** Konfirmasi dari Admin SSO Sipetra bahwa Client ID & Redirect URL aktif.
+  - [x] Client ID dan Client Secret SSO Sipetra diperoleh (`019fca70-defd-73c4-b5d5-f2ac581a0792`).
+  - [x] Issuer URI / Authorize URL SSO Sipetra diperoleh (`https://bpsdemak.com`).
+  - [x] Redirect Callback URL `http://10.133.21.24:8880/login/oauth2/code/sipetra` terdaftar di Sipetra SSO.
+- **Verification:** Client ID & Secret telah dikonfigurasi ke dalam `.env` dan `docker-compose.yml`.
 - **Estimated scope:** XS (0 files / Admin Coordination)
 
 #### Task 2: Konfigurasi SSO Sipetra di `.env` & `.env.example`
 - **Description:** Menambahkan konfigurasi OAuth2 Sipetra dan Light Mode ke `.env` dan `.env.example`.
 - **Acceptance criteria:**
-  - [ ] File `.env` dan `.env.example` memuat variabel `SECURITY_OAUTH2_*`.
-  - [ ] File `.env` memuat `SYSTEM_DEFAULTTHEME=light`.
+  - [x] File `.env` dan `.env.example` memuat variabel `SECURITY_OAUTH2_*`.
+  - [x] File `.env` memuat `SYSTEM_DEFAULTTHEME=light`.
 - **Verification:** File `.env` dan `.env.example` ter-update dengan variabel SSO Sipetra dan Light Mode.
 - **Estimated scope:** XS (2 files: `.env`, `.env.example`)
 
 ---
 
 ### Checkpoint 1: Configuration Readiness
-- [ ] Kredensial SSO Sipetra lengkap
-- [ ] Variable `.env` dan `.env.example` ter-update
+- [x] Kredensial SSO Sipetra lengkap
+- [x] Variable `.env` dan `.env.example` ter-update
 
 ---
 
@@ -54,9 +54,9 @@ Dokumen ini disusun menggunakan panduan `/planning-and-task-breakdown` agar siap
 #### Task 3: Konfigurasi Default Light Mode pada `custom_settings.yml` & `custom.css`
 - **Description:** Mengatur default theme ke Light Mode di `extraConfigs/custom_settings.yml` dan menyediakan CSS override jika diperlukan.
 - **Acceptance criteria:**
-  - [ ] `extraConfigs/custom_settings.yml` memiliki `system.defaultTheme: light`.
-  - [ ] Template `customFiles/static/custom.css` siap untuk penyesuaian warna jika diperlukan.
-- **Verification:** Aplikasi tampil dengan latar belakang terang/light mode secara default saat dibuka pertama kali.
+  - [x] `extraConfigs/custom_settings.yml` memiliki `system.defaultTheme: light`.
+  - [x] Template `customFiles/static/custom.css` siap untuk penyesuaian warna jika diperlukan.
+- **Verification:** File `custom_settings.yml` dan `custom.css` telah terbuat dan terkonfigurasi.
 - **Estimated scope:** S (2 files: `extraConfigs/custom_settings.yml`, `customFiles/static/custom.css`)
 
 ---

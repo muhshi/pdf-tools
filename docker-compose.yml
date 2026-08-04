@@ -4,15 +4,30 @@ services:
     container_name: pdf-tools
     ports:
       - "${PORT:-8880}:8080"
+    env_file:
+      - .env
     environment:
       # Keamanan Login
       - SECURITY_ENABLELOGIN=${SECURITY_ENABLELOGIN:-true}
+      - SECURITY_LOGINMETHOD=${SECURITY_LOGINMETHOD:-all}
       - SECURITY_INITIALLOGIN_USERNAME=${ADMIN_USERNAME:-admin}
       - SECURITY_INITIALLOGIN_PASSWORD=${ADMIN_PASSWORD:-StirlingPassword123!}
       
-      # Pengaturan Bahasa & Aplikasi
+      # Integrasi SSO Sipetra (OAuth2)
+      - SECURITY_OAUTH2_ENABLED=${SECURITY_OAUTH2_ENABLED:-true}
+      - SECURITY_OAUTH2_ISSUER=${SECURITY_OAUTH2_ISSUER:-https://bpsdemak.com}
+      - SECURITY_OAUTH2_CLIENTID=${SECURITY_OAUTH2_CLIENTID:-019fca70-defd-73c4-b5d5-f2ac581a0792}
+      - SECURITY_OAUTH2_CLIENTSECRET=${SECURITY_OAUTH2_CLIENTSECRET:-Efg9peKx0CFqxC9SgvZI5hqNMdyOgV8MktRo9bSw}
+      - SECURITY_OAUTH2_SCOPES=${SECURITY_OAUTH2_SCOPES:-openid, profile, email}
+      - SECURITY_OAUTH2_USEASUSERNAME=${SECURITY_OAUTH2_USEASUSERNAME:-email}
+      - SECURITY_OAUTH2_PROVIDER=${SECURITY_OAUTH2_PROVIDER:-sipetra}
+      - SECURITY_OAUTH2_AUTOCREATEUSER=${SECURITY_OAUTH2_AUTOCREATEUSER:-true}
+      - SECURITY_OAUTH2_BLOCKREGISTRATION=${SECURITY_OAUTH2_BLOCKREGISTRATION:-false}
+      
+      # Pengaturan Bahasa, Nama & Tema Aplikasi
       - SYSTEM_DEFAULTLOCALE=${LOCALE:-id_ID}
       - UI_APPNAME=${APP_NAME:-PDF Tools}
+      - SYSTEM_DEFAULTTHEME=${SYSTEM_DEFAULTTHEME:-light}
       
       # Performa & Resource Tuning
       - JAVA_TOOL_OPTIONS=-Xmx1024m
