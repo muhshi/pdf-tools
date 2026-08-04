@@ -76,6 +76,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-04
+- **Perbaikan Builder.Default Lombok (`SaveUserRequest`)**: Mengimpor `lombok.Builder.Default` secara eksplisit (`@Default`) di `SaveUserRequest.java` untuk mengatasi konflik resolusi tipe akibat penamaan builder class `builderClassName = "Builder"` (`Builder.Default cannot be resolved to a type`).
 - **Perbaikan Dependensi TypeScript Node (`@types/node`)**: Memperbarui versi `@types/node` di `frontend/package.json` dan menambahkan `typeRoots` pada `frontend/editor/scripts/tsconfig.json` untuk menyelesaikan peringatan/error IntelliSense IDE (`Cannot find type definition file for 'node'`).
 - **Pembatasan Memori Gradle Build (`GRADLE_OPTS="-Xmx512m"`)**: Menambahkan limitasi alokasi RAM pada proses kompilasi Gradle di `Dockerfile` agar penggunaan memori terkunci maksimal 512MB RAM dan tidak menyebabkan server hang.
 - **Standarisasi Perintah Deployment (`bash deploy.sh`)**: Mengubah panduan instruksi eksekusi deployment di README.md dan log output dari `./deploy.sh` menjadi `bash deploy.sh` agar tidak membutuhkan chmod tambahan.
