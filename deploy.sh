@@ -70,16 +70,16 @@ case "$ACTION" in
         exit 0
         ;;
     --build|-b)
-        echo -e "${BLUE}[INFO] Fetching & resetting to latest Git repository...${NC}"
-        git fetch origin main || true
-        git reset --hard origin/main || true
+        echo -e "${BLUE}[INFO] Fetching latest updates from Git...${NC}"
+        git fetch --all 2>/dev/null || true
+        git reset --hard origin/main 2>/dev/null || true
         docker compose build
         docker compose up -d --force-recreate
         ;;
     deploy|*)
-        echo -e "${BLUE}[INFO] Fetching & resetting to latest Git repository...${NC}"
-        git fetch origin main || true
-        git reset --hard origin/main || true
+        echo -e "${BLUE}[INFO] Fetching latest updates from Git...${NC}"
+        git fetch --all 2>/dev/null || true
+        git reset --hard origin/main 2>/dev/null || true
         docker compose pull
         docker compose up -d --remove-orphans
         ;;

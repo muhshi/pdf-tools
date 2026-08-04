@@ -81,6 +81,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-04
+- **Optimasi Script Deployment (`deploy.sh`)**: Mengganti alur sinkronisasi Git menggunakan `git fetch --all` dan `git reset --hard` agar deployment tidak pernah gagal akibat `unstaged changes` atau bentrok `git pull`.
 - **Konfigurasi Kredensial SSO Sipetra (OAuth2)**: Mengintegrasikan Client ID (`019fca70-defd-73c4-b5d5-f2ac581a0792`) dan Client Secret Sipetra SSO ke dalam `.env`, `.env.example`, dan `docker-compose.yml` dengan provider `sipetra`.
 - **Perencanaan Integrasi SSO Sipetra & Light Mode**: Menambahkan file perencanaan kerja `tasks/plan.md` dan checklist `tasks/todo.md` untuk integrasi SSO Sipetra (OAuth2) dan pengaturan Light Mode bawaan.
 - **Konfigurasi Light Mode**: Menambahkan default theme `light` pada `extraConfigs/custom_settings.yml` dan file styling `customFiles/static/custom.css`.
