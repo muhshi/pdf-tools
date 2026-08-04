@@ -81,6 +81,7 @@ Aplikasi akan otomatis mengunduh container image resmi, menyiapkan konfigurasi, 
 ## 📋 Changelog
 
 ### 2026-08-04
+- **Konfigurasi Fast Deployment (Prebuilt Image + Spring Security OAuth2)**: Mengalihkan deployment kembali ke image resmi `stirlingtools/stirling-pdf:latest` yang serba cepat (tanpa kompilasi berat di server) dan menggunakan konfigurasi environment variable standar Spring Security (`SPRING_SECURITY_OAUTH2_CLIENT_*`) untuk mengarahkan alur SSO Sipetra.
 - **Optimasi Paralel Kompilasi Gradle Docker**: Mengatur `gradle build --parallel` dan menghapus `clean` pada `Dockerfile` untuk mempercepat waktu kompilasi source code Java + React SPA.
 - **Optimasi Kecepatan Docker Build**: Menghapus baris redundan `RUN gradle dependencies` pada `docker/embedded/Dockerfile` yang menyebabkan proses build Docker macet/lama saat mengunduh pohon dependensi Gradle.
 - **Dukungan Custom Redirect URI OAuth2 (`/auth/sipetra/callback`)**: Menambahkan dukungan variabel `SECURITY_OAUTH2_REDIRECTURI` pada `ApplicationProperties` dan `OAuth2Configuration` agar sesuai dengan Callback URI yang terdaftar pada dashboard Sipetra OAuth Client (`/auth/sipetra/callback`).
